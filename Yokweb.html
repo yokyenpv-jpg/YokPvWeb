@@ -1,0 +1,1450 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Yok Yen Pang Vera | Portfolio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #060606;
+      --bg-soft: #0d0d0d;
+      --panel: rgba(255,255,255,0.04);
+      --panel-strong: rgba(255,255,255,0.06);
+      --line: rgba(214,169,77,0.28);
+      --gold: #d6a94d;
+      --gold-strong: #f1c66f;
+      --gold-soft: #8c6928;
+      --text: #f6f1e8;
+      --muted: #c9bea9;
+      --shadow: 0 25px 50px rgba(0,0,0,0.45);
+      --max-width: 1380px;
+      --radius: 28px;
+      --transition: 0.35s ease;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Inter', sans-serif;
+      background:
+        radial-gradient(circle at 82% 16%, rgba(214,169,77,0.16), transparent 18%),
+        radial-gradient(circle at 18% 30%, rgba(214,169,77,0.08), transparent 18%),
+        linear-gradient(180deg, #030303 0%, #080808 50%, #040404 100%);
+      color: var(--text);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
+      background-size: 44px 44px;
+      mask-image: linear-gradient(to bottom, rgba(0,0,0,0.75), transparent 95%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    a { color: inherit; text-decoration: none; }
+    img { display: block; max-width: 100%; }
+
+    .cursor-glow {
+      position: fixed;
+      width: 260px;
+      height: 260px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(214,169,77,0.12), rgba(214,169,77,0.04) 36%, transparent 72%);
+      transform: translate(-50%, -50%);
+      pointer-events: none;
+      z-index: 0;
+      mix-blend-mode: screen;
+      transition: width 0.3s ease, height 0.3s ease, opacity 0.3s ease;
+      opacity: 0.95;
+    }
+
+    .cursor-glow.active {
+      width: 320px;
+      height: 320px;
+    }
+
+    .shell {
+      position: relative;
+      z-index: 1;
+      width: min(var(--max-width), calc(100% - 32px));
+      margin: 0 auto;
+      padding: 18px 0 46px;
+    }
+
+    .topbar {
+      position: sticky;
+      top: 14px;
+      z-index: 20;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      padding: 14px 18px;
+      margin-bottom: 18px;
+      border: 1px solid rgba(214,169,77,0.16);
+      background: rgba(8,8,8,0.82);
+      backdrop-filter: blur(16px);
+      border-radius: 999px;
+      box-shadow: var(--shadow);
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      min-width: 180px;
+    }
+
+    .brand-mark {
+      width: 52px;
+      height: 52px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      border: 1px solid var(--line);
+      color: var(--gold-strong);
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.7rem;
+      font-weight: 700;
+      background: radial-gradient(circle, rgba(214,169,77,0.18), rgba(214,169,77,0.02) 70%);
+    }
+
+    .brand-copy strong {
+      display: block;
+      font-size: 0.98rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--gold-strong);
+    }
+
+    .brand-copy span {
+      display: block;
+      font-size: 0.84rem;
+      color: var(--muted);
+      margin-top: 2px;
+    }
+
+    .nav {
+      display: flex;
+      gap: 28px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .nav a {
+      position: relative;
+      color: var(--text);
+      font-size: 0.95rem;
+      transition: color var(--transition);
+    }
+
+    .nav a::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: -8px;
+      width: 100%;
+      height: 1px;
+      transform: scaleX(0);
+      transform-origin: left;
+      background: var(--gold);
+      transition: transform var(--transition);
+    }
+
+    .nav a:hover,
+    .nav a.active {
+      color: var(--gold-strong);
+    }
+
+    .nav a:hover::after,
+    .nav a.active::after {
+      transform: scaleX(1);
+    }
+
+    .lang-switch {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 8px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: rgba(255,255,255,0.02);
+      min-width: 154px;
+      justify-content: space-between;
+    }
+
+    .lang-label {
+      font-size: 0.92rem;
+      font-weight: 700;
+      color: var(--muted);
+      padding: 0 10px;
+      transition: color var(--transition);
+    }
+
+    .lang-label.active {
+      color: var(--gold-strong);
+    }
+
+    .toggle {
+      position: relative;
+      width: 56px;
+      height: 30px;
+      border-radius: 999px;
+      background: rgba(214,169,77,0.18);
+      border: 1px solid rgba(214,169,77,0.38);
+      cursor: pointer;
+      flex-shrink: 0;
+    }
+
+    .toggle::before {
+      content: "";
+      position: absolute;
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      top: 3px;
+      left: 4px;
+      background: linear-gradient(135deg, var(--gold-strong), var(--gold));
+      transition: transform var(--transition);
+      box-shadow: 0 0 18px rgba(214,169,77,0.28);
+    }
+
+    body[data-lang="en"] .toggle::before {
+      transform: translateX(25px);
+    }
+
+    section {
+      scroll-margin-top: 110px;
+    }
+
+    .hero {
+      display: grid;
+      grid-template-columns: 0.95fr 1.05fr;
+      gap: 22px;
+      align-items: center;
+      min-height: calc(100vh - 120px);
+      padding: 18px 8px 28px;
+    }
+
+    .panel {
+      border: 1px solid rgba(214,169,77,0.12);
+      background: linear-gradient(180deg, rgba(255,255,255,0.035), rgba(255,255,255,0.02));
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+    }
+
+    .hero-copy {
+      padding: 18px 10px 18px 12px;
+      max-width: 630px;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 14px;
+      color: var(--gold-strong);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      font-size: 0.9rem;
+      margin-bottom: 22px;
+    }
+
+    .eyebrow::after {
+      content: "";
+      width: 96px;
+      height: 1px;
+      background: currentColor;
+      opacity: 0.72;
+    }
+
+    .hero-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 700;
+      font-size: clamp(3.5rem, 7vw, 6rem);
+      line-height: 0.92;
+      letter-spacing: -0.04em;
+      margin-bottom: 14px;
+    }
+
+    .hero-title span {
+      display: block;
+      color: var(--gold);
+    }
+
+    .hero-role {
+      font-size: 1.42rem;
+      line-height: 1.4;
+      color: #f8f1e2;
+      margin-bottom: 14px;
+      font-weight: 600;
+    }
+
+    .hero-summary {
+      color: var(--muted);
+      font-size: 1.12rem;
+      line-height: 1.8;
+      max-width: 58ch;
+      margin-bottom: 26px;
+    }
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 14px;
+      margin-bottom: 26px;
+    }
+
+    .stat {
+      padding: 18px 14px;
+      border-radius: 22px;
+      border: 1px solid rgba(214,169,77,0.14);
+      background: rgba(255,255,255,0.025);
+      transition: transform var(--transition), border-color var(--transition);
+    }
+
+    .stat:hover { transform: translateY(-4px); border-color: rgba(214,169,77,0.28); }
+    .stat strong {
+      display: block;
+      color: var(--gold-strong);
+      font-size: 1.45rem;
+      margin-bottom: 6px;
+    }
+    .stat span { display: block; color: var(--muted); font-size: 0.86rem; line-height: 1.4; }
+
+    .hero-actions {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      flex-wrap: wrap;
+      margin-bottom: 24px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      padding: 16px 24px;
+      border-radius: 18px;
+      font-size: 0.96rem;
+      font-weight: 700;
+      border: 1px solid transparent;
+      transition: transform var(--transition), box-shadow var(--transition), border-color var(--transition), background var(--transition);
+      cursor: pointer;
+    }
+
+    .btn:hover { transform: translateY(-3px); }
+
+    .btn-primary {
+      color: #121212;
+      background: linear-gradient(135deg, var(--gold-strong), var(--gold));
+      box-shadow: 0 16px 30px rgba(214,169,77,0.18);
+    }
+
+    .btn-secondary {
+      color: var(--gold-strong);
+      background: rgba(255,255,255,0.02);
+      border-color: rgba(214,169,77,0.24);
+    }
+
+    .socials {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .social {
+      width: 52px;
+      height: 52px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      border: 1px solid rgba(214,169,77,0.18);
+      background: rgba(255,255,255,0.025);
+      color: var(--gold-strong);
+      font-weight: 700;
+      transition: transform var(--transition), border-color var(--transition), background var(--transition);
+      cursor: pointer;
+    }
+
+    .social:hover {
+      transform: translateY(-4px);
+      border-color: rgba(214,169,77,0.32);
+      background: rgba(214,169,77,0.08);
+    }
+
+    .hero-media {
+      position: relative;
+      min-height: 760px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .media-ring {
+      position: absolute;
+      width: min(640px, 92%);
+      aspect-ratio: 1 / 1;
+      border-radius: 50%;
+      border: 2px solid rgba(214,169,77,0.78);
+      box-shadow: 0 0 0 1px rgba(214,169,77,0.10), 0 0 80px rgba(214,169,77,0.12), inset 0 0 80px rgba(214,169,77,0.08);
+    }
+
+    .media-glow {
+      position: absolute;
+      width: 74%;
+      aspect-ratio: 1 / 1;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(214,169,77,0.22), rgba(214,169,77,0.06) 48%, transparent 72%);
+      filter: blur(10px);
+    }
+
+    .photo-stage {
+      position: relative;
+      width: min(620px, 100%);
+      min-height: 760px;
+      display: flex;
+      align-items: end;
+      justify-content: center;
+      isolation: isolate;
+    }
+
+    .hero-photo {
+      position: absolute;
+      inset: auto 0 0 0;
+      margin: auto;
+      width: min(620px, 100%);
+      max-height: 760px;
+      object-fit: contain;
+      filter: drop-shadow(0 30px 70px rgba(0,0,0,0.52));
+      opacity: 0;
+      transform: translateY(24px) scale(0.98);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+
+    .hero-photo.active {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+      z-index: 2;
+    }
+
+    .overview {
+      display: grid;
+      grid-template-columns: 1.05fr 0.95fr;
+      gap: 18px;
+      margin-top: 10px;
+      margin-bottom: 18px;
+    }
+
+    .card {
+      padding: 28px;
+    }
+
+    .card-title {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      font-size: 1.6rem;
+      margin-bottom: 18px;
+      color: var(--gold-strong);
+      font-family: 'Cormorant Garamond', serif;
+      letter-spacing: 0.02em;
+    }
+
+    .card-title::before {
+      content: "";
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      border: 1px solid rgba(214,169,77,0.3);
+      background: radial-gradient(circle, rgba(214,169,77,0.16), rgba(214,169,77,0.03) 75%);
+      flex-shrink: 0;
+    }
+
+    .about-text {
+      color: var(--muted);
+      line-height: 1.95;
+      font-size: 1.02rem;
+    }
+
+    .strength-list {
+      display: grid;
+      gap: 16px;
+    }
+
+    .strength-item {
+      display: grid;
+      grid-template-columns: 44px 1fr;
+      gap: 14px;
+      align-items: start;
+      padding: 10px 0;
+      border-top: 1px solid rgba(214,169,77,0.12);
+    }
+
+    .strength-item:first-child { border-top: none; padding-top: 0; }
+
+    .strength-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 14px;
+      border: 1px solid rgba(214,169,77,0.18);
+      background: rgba(214,169,77,0.06);
+      display: grid;
+      place-items: center;
+      color: var(--gold-strong);
+      font-size: 1.2rem;
+    }
+
+    .strength-item h4 {
+      color: var(--gold-strong);
+      margin-bottom: 6px;
+      font-size: 1.06rem;
+    }
+
+    .strength-item p {
+      color: var(--muted);
+      line-height: 1.75;
+      font-size: 0.98rem;
+    }
+
+    .section-header {
+      margin: 34px 0 18px;
+      text-align: center;
+    }
+
+    .section-header h2 {
+      font-family: 'Cormorant Garamond', serif;
+      color: var(--gold-strong);
+      font-size: clamp(2.2rem, 4vw, 3rem);
+      margin-bottom: 6px;
+    }
+
+    .section-header p {
+      color: var(--muted);
+      max-width: 760px;
+      margin: 0 auto;
+      line-height: 1.85;
+    }
+
+    .timeline {
+      display: grid;
+      gap: 16px;
+    }
+
+    .timeline-item {
+      display: grid;
+      grid-template-columns: 240px 1fr;
+      gap: 24px;
+      padding: 24px;
+      border: 1px solid rgba(214,169,77,0.12);
+      border-radius: 28px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.032), rgba(255,255,255,0.018));
+      box-shadow: var(--shadow);
+      transition: transform var(--transition), border-color var(--transition);
+    }
+
+    .timeline-item:hover { transform: translateY(-4px); border-color: rgba(214,169,77,0.26); }
+
+    .timeline-date {
+      color: var(--gold-strong);
+      font-size: 0.92rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 12px;
+      display: block;
+    }
+
+    .timeline-company {
+      color: var(--muted);
+      line-height: 1.7;
+      font-size: 0.96rem;
+    }
+
+    .timeline-body h3 {
+      font-size: 1.35rem;
+      margin-bottom: 6px;
+      color: #fbf4e8;
+    }
+
+    .timeline-body h4 {
+      color: var(--gold-strong);
+      font-size: 1rem;
+      margin-bottom: 16px;
+      font-weight: 600;
+    }
+
+    .timeline-body ul {
+      padding-left: 18px;
+      color: var(--muted);
+      line-height: 1.82;
+    }
+
+    .timeline-body li + li { margin-top: 8px; }
+
+    .grid-four {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 18px;
+      margin-top: 18px;
+    }
+
+    .mini-card {
+      padding: 24px;
+      border: 1px solid rgba(214,169,77,0.12);
+      border-radius: 26px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.032), rgba(255,255,255,0.018));
+      box-shadow: var(--shadow);
+      transition: transform var(--transition), border-color var(--transition);
+    }
+
+    .mini-card:hover { transform: translateY(-4px); border-color: rgba(214,169,77,0.26); }
+
+    .mini-card h3 {
+      color: var(--gold-strong);
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.55rem;
+      margin-bottom: 14px;
+    }
+
+    .mini-card ul {
+      padding-left: 18px;
+      color: var(--muted);
+      line-height: 1.82;
+    }
+
+    .mini-card li + li { margin-top: 6px; }
+
+    .languages {
+      display: grid;
+      gap: 14px;
+      margin-top: 6px;
+    }
+
+    .language-row strong {
+      display: block;
+      color: #f8efe0;
+      margin-bottom: 8px;
+    }
+
+    .language-row span {
+      display: block;
+      color: var(--muted);
+      margin-bottom: 8px;
+    }
+
+    .level {
+      display: flex;
+      gap: 6px;
+    }
+
+    .level i {
+      display: block;
+      height: 8px;
+      flex: 1;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.14);
+    }
+
+    .level i.on { background: linear-gradient(90deg, var(--gold-strong), var(--gold)); }
+
+    .contact-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 18px;
+      margin-top: 18px;
+      margin-bottom: 10px;
+    }
+
+    .contact-card {
+      padding: 22px 24px;
+      border-radius: 22px;
+      border: 1px solid rgba(214,169,77,0.12);
+      background: rgba(255,255,255,0.03);
+      box-shadow: var(--shadow);
+    }
+
+    .contact-card small {
+      display: block;
+      color: var(--gold-strong);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 10px;
+    }
+
+    .contact-card strong,
+    .contact-card span {
+      display: block;
+      color: var(--text);
+      line-height: 1.7;
+      word-break: break-word;
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(34px);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .magnetic { transition: transform 0.18s ease; }
+
+    #toast {
+      position: fixed;
+      right: 24px;
+      bottom: 24px;
+      z-index: 99999;
+      background: linear-gradient(135deg, var(--gold-strong), var(--gold));
+      color: #111;
+      padding: 14px 18px;
+      border-radius: 14px;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.35);
+      font-weight: 700;
+      opacity: 0;
+      transform: translateY(20px);
+      pointer-events: none;
+      transition: opacity 0.3s ease, transform 0.3s ease;
+      max-width: 320px;
+    }
+
+    #toast.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    @media (max-width: 1160px) {
+      .hero,
+      .overview {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-media {
+        min-height: 560px;
+        order: -1;
+      }
+
+      .photo-stage,
+      .hero-photo {
+        min-height: 560px;
+        max-height: 560px;
+      }
+
+      .stats,
+      .grid-four,
+      .contact-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 920px) {
+      .topbar {
+        border-radius: 28px;
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+
+      .brand {
+        justify-content: center;
+        width: 100%;
+      }
+
+      .nav {
+        order: 3;
+        width: 100%;
+      }
+
+      .timeline-item {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 680px) {
+      .shell { width: min(100%, calc(100% - 18px)); }
+      .hero { min-height: auto; padding-top: 8px; }
+      .hero-copy { padding-inline: 2px; }
+      .hero-title { font-size: clamp(2.9rem, 16vw, 4.3rem); }
+      .hero-role { font-size: 1.12rem; }
+      .hero-summary { font-size: 1rem; }
+      .stats,
+      .grid-four,
+      .contact-grid {
+        grid-template-columns: 1fr;
+      }
+      .hero-media { min-height: 420px; }
+      .photo-stage,
+      .hero-photo {
+        min-height: 420px;
+        max-height: 420px;
+      }
+      .card,
+      .mini-card,
+      .timeline-item,
+      .contact-card {
+        padding: 18px;
+      }
+      .lang-switch { min-width: 138px; }
+      #toast {
+        right: 14px;
+        left: 14px;
+        bottom: 14px;
+        max-width: none;
+      }
+    }
+  </style>
+</head>
+<body data-lang="es">
+  <div class="cursor-glow" id="cursorGlow"></div>
+
+  <div class="shell">
+    <header class="topbar reveal">
+      <a href="#inicio" class="brand magnetic">
+        <div class="brand-mark">YP</div>
+        <div class="brand-copy">
+          <strong>Yok Yen Pang Vera</strong>
+          <span data-i18n="brandRole">Coordinación Operativa</span>
+        </div>
+      </a>
+
+      <nav class="nav">
+        <a href="#inicio" class="magnetic active" data-nav="inicio" data-i18n="navHome">Inicio</a>
+        <a href="#sobre" class="magnetic" data-nav="sobre" data-i18n="navAbout">Sobre mí</a>
+        <a href="#experiencia" class="magnetic" data-nav="experiencia" data-i18n="navExperience">Experiencia</a>
+        <a href="#habilidades" class="magnetic" data-nav="habilidades" data-i18n="navSkills">Habilidades</a>
+        <a href="#contacto" class="magnetic" data-nav="contacto" data-i18n="navContact">Contacto</a>
+      </nav>
+
+      <div class="lang-switch magnetic" id="langSwitch" role="button" aria-label="Cambiar idioma" tabindex="0">
+        <span class="lang-label active" data-lang-label="es">ES</span>
+        <div class="toggle"></div>
+        <span class="lang-label" data-lang-label="en">EN</span>
+      </div>
+    </header>
+
+    <main>
+      <section class="hero" id="inicio">
+        <div class="hero-copy reveal">
+          <div class="eyebrow" data-i18n="eyebrow">Coordinadora de inteligencia operativa</div>
+          <h1 class="hero-title">Yok Yen <span>Pang Vera</span></h1>
+          <p class="hero-role" data-i18n="heroRole">Liderazgo operativo, mejora continua, calidad y coordinación interfuncional.</p>
+          <p class="hero-summary" data-i18n="heroSummary">
+            Optimizo procesos, lidero equipos y convierto la operación en resultados medibles mediante mejora continua, calidad y enfoque estratégico.
+          </p>
+
+          <div class="stats">
+            <div class="stat magnetic">
+              <strong data-i18n="statYearsValue">+7</strong>
+              <span data-i18n="statYearsLabel">años de experiencia</span>
+            </div>
+            <div class="stat magnetic">
+              <strong data-i18n="statTeamValue">+38</strong>
+              <span data-i18n="statTeamLabel">colaboradores liderados por turno</span>
+            </div>
+            <div class="stat magnetic">
+              <strong data-i18n="statCompaniesValue">5</strong>
+              <span data-i18n="statCompaniesLabel">roles clave en operación, calidad y mejora</span>
+            </div>
+            <div class="stat magnetic">
+              <strong data-i18n="statMethodsValue">6+</strong>
+              <span data-i18n="statMethodsLabel">metodologías de mejora continua y control</span>
+            </div>
+          </div>
+
+          <div class="hero-actions">
+            <a href="#experiencia" class="btn btn-primary magnetic" data-i18n="btnExplore">Ver experiencia</a>
+            <a href="./cv-es.pdf" class="btn btn-secondary magnetic" id="downloadCv" download data-i18n="btnDownload">Descargar CV (Español)</a>
+          </div>
+
+          <div class="socials">
+            <a class="social magnetic" id="linkedinLink" href="https://www.linkedin.com/in/yok-yenpang-vera" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">in</a>
+            <a class="social magnetic" id="emailLink" href="#" aria-label="Correo">@</a>
+            <a class="social magnetic" id="phoneLink" href="#" aria-label="Teléfono">☎</a>
+          </div>
+        </div>
+
+        <div class="hero-media reveal">
+          <div class="media-ring"></div>
+          <div class="media-glow"></div>
+          <div class="photo-stage">
+            <img class="hero-photo active" id="photoEs" src="./foto-es.png" alt="Yok Yen Pang Vera - Español">
+            <img class="hero-photo" id="photoEn" src="./foto-es.png" alt="Yok Yen Pang Vera - English">
+          </div>
+        </div>
+      </section>
+
+      <section class="overview" id="sobre">
+        <article class="panel card reveal magnetic">
+          <h2 class="card-title" data-i18n="aboutTitle">Sobre mí</h2>
+          <p class="about-text" data-i18n="aboutText">
+            Profesional enfocada en impulsar la continuidad del negocio mediante liderazgo colaborativo, mejora continua, satisfacción del cliente y cumplimiento de objetivos estratégicos. Su experiencia integra operación, calidad, control de procesos, gestión de indicadores y coordinación de equipos multidisciplinarios en entornos productivos y logísticos.
+          </p>
+        </article>
+
+        <article class="panel card reveal magnetic">
+          <h2 class="card-title" data-i18n="strengthsTitle">Fortalezas clave</h2>
+          <div class="strength-list">
+            <div class="strength-item">
+              <div class="strength-icon">↗</div>
+              <div>
+                <h4 data-i18n="strength1Title">Liderazgo operativo</h4>
+                <p data-i18n="strength1Text">Gestión de equipos, seguimiento de tareas y coordinación interfuncional orientada a resultados sostenibles.</p>
+              </div>
+            </div>
+            <div class="strength-item">
+              <div class="strength-icon">⚙</div>
+              <div>
+                <h4 data-i18n="strength2Title">Mejora continua</h4>
+                <p data-i18n="strength2Text">Aplicación de Quickwin, Kaizen, 5 Whys, Ishikawa y Problem Solving para optimizar procesos.</p>
+              </div>
+            </div>
+            <div class="strength-item">
+              <div class="strength-icon">✓</div>
+              <div>
+                <h4 data-i18n="strength3Title">Calidad y cumplimiento</h4>
+                <p data-i18n="strength3Text">Aseguramiento de calidad, monitoreo de KPIs, auditorías, SPC y estándares regulatorios.</p>
+              </div>
+            </div>
+          </div>
+        </article>
+      </section>
+
+      <section id="experiencia">
+        <div class="section-header reveal">
+          <h2 data-i18n="experienceTitle">Experiencia profesional</h2>
+          <p data-i18n="experienceIntro">Trayectoria en operación, logística, calidad y mejora continua con foco en eficiencia, control y liderazgo de equipos.</p>
+        </div>
+
+        <div class="timeline">
+          <article class="timeline-item reveal magnetic">
+            <div>
+              <span class="timeline-date" data-i18n="exp1Date">Mayo 2024 – Julio 2025</span>
+              <p class="timeline-company" data-i18n="exp1Company">Natura & Co. · Híbrido · Ciudad de México</p>
+            </div>
+            <div class="timeline-body">
+              <h3 data-i18n="exp1Role">Coordinador de inteligencia de línea</h3>
+              <h4 data-i18n="exp1Tag">Operación · reabasto · balanceo de línea</h4>
+              <ul>
+                <li data-i18n="exp1B1">Reabastos y balanceos de línea.</li>
+                <li data-i18n="exp1B2">Gestión de operador logístico y equipos de trabajo de más de 38 colaboradores por turno.</li>
+                <li data-i18n="exp1B3">Identificación de eficiencias en la línea de surtido y planeación de sets de trabajo vs demanda.</li>
+                <li data-i18n="exp1B4">Coordinación interfuncional, seguimiento de tareas e indicadores clave de rendimiento.</li>
+                <li data-i18n="exp1B5">Definición de estrategias de reabasto para lograr eficiencia y eficacia en la línea de picking.</li>
+              </ul>
+            </div>
+          </article>
+
+          <article class="timeline-item reveal magnetic">
+            <div>
+              <span class="timeline-date" data-i18n="exp2Date">Mayo 2023 – Abril 2024</span>
+              <p class="timeline-company" data-i18n="exp2Company">DHL Supply Chain · Presencial · Tepotzotlán, México</p>
+            </div>
+            <div class="timeline-body">
+              <h3 data-i18n="exp2Role">Supervisor OMS mejora continua</h3>
+              <h4 data-i18n="exp2Tag">KPIs · estandarización · productividad</h4>
+              <ul>
+                <li data-i18n="exp2B1">Implementación de sistemas de mejora continua operativa.</li>
+                <li data-i18n="exp2B2">Manejo y monitoreo de KPIs y medición de estándares de productividad.</li>
+                <li data-i18n="exp2B3">Estandarización de procesos y ejecución de proyectos de mejora continua.</li>
+                <li data-i18n="exp2B4">Uso de Quickwin, Kaizen, 5 Whys, Ishikawa y Problem Solving.</li>
+                <li data-i18n="exp2B5">Monitoreo de desempeño mediante WLM y evaluación de efectividad de procesos internos.</li>
+              </ul>
+            </div>
+          </article>
+
+          <article class="timeline-item reveal magnetic">
+            <div>
+              <span class="timeline-date" data-i18n="exp3Date">Noviembre 2020 – Mayo 2023</span>
+              <p class="timeline-company" data-i18n="exp3Company">BACARDÍ y Compañía · Presencial · Tultitlán, México</p>
+            </div>
+            <div class="timeline-body">
+              <h3 data-i18n="exp3Role">Quality Leader</h3>
+              <h4 data-i18n="exp3Tag">SPC · auditorías · calidad envasado</h4>
+              <ul>
+                <li data-i18n="exp3B1">Aseguramiento de calidad envasado y toma de decisiones para lotes producidos vs calidad esperada.</li>
+                <li data-i18n="exp3B2">Monitoreo de líneas de envasado y gestión de proyectos como briefs y commissionings.</li>
+                <li data-i18n="exp3B3">Aseguramiento de Control Estadístico de Proceso (SPC).</li>
+                <li data-i18n="exp3B4">Seguimiento a NOM-002, NOM-251, NOM-142 y KPIs como RFT, EOL y consumer complaints.</li>
+                <li data-i18n="exp3B5">Soporte a auditorías COFEPRIS, HACCP e ISO-9001 y planes de acción de causa raíz.</li>
+              </ul>
+            </div>
+          </article>
+
+          <article class="timeline-item reveal magnetic">
+            <div>
+              <span class="timeline-date" data-i18n="exp4Date">Enero 2020 – Octubre 2020</span>
+              <p class="timeline-company" data-i18n="exp4Company">PATH Logistic + Copacker · Presencial · Tepotzotlán, México</p>
+            </div>
+            <div class="timeline-body">
+              <h3 data-i18n="exp4Role">Coordinadora de control de calidad</h3>
+              <h4 data-i18n="exp4Tag">Auditorías · inventarios · documentación técnica</h4>
+              <ul>
+                <li data-i18n="exp4B1">Trato directo con clientes y proveedores y supervisión de normativas de seguridad y calidad.</li>
+                <li data-i18n="exp4B2">Seguimiento a indicadores, auditorías internas, cruzadas y de cliente.</li>
+                <li data-i18n="exp4B3">Gestión de pequeños equipos de trabajo, inventarios, budgets y facturaciones.</li>
+                <li data-i18n="exp4B4">Desarrollo e implementación de prácticas que garantizan estándares de calidad.</li>
+                <li data-i18n="exp4B5">Redacción de documentación técnica, reportes y dictámenes.</li>
+              </ul>
+            </div>
+          </article>
+
+          <article class="timeline-item reveal magnetic">
+            <div>
+              <span class="timeline-date" data-i18n="exp5Date">Marzo 2018 – Enero 2020</span>
+              <p class="timeline-company" data-i18n="exp5Company">PATH Logistic + Copacker · Presencial · Cuautitlán, México</p>
+            </div>
+            <div class="timeline-body">
+              <h3 data-i18n="exp5Role">Inspectora de control de calidad</h3>
+              <h4 data-i18n="exp5Tag">Inspección · PNC · SGI</h4>
+              <ul>
+                <li data-i18n="exp5B1">Inspección de recibo, PT y PNC.</li>
+                <li data-i18n="exp5B2">Detección de productos no conformes vs especificaciones técnicas y trato directo con cliente.</li>
+                <li data-i18n="exp5B3">Inspección de maquilas, unidades de transporte y análisis sensoriales.</li>
+                <li data-i18n="exp5B4">Actualización y control de formatos y auditoría de formatos para SGI.</li>
+                <li data-i18n="exp5B5">Manejo integrado de plagas y rotación de químicos.</li>
+              </ul>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section id="habilidades">
+        <div class="section-header reveal">
+          <h2 data-i18n="skillsTitle">Habilidades, certificaciones e idiomas</h2>
+          <p data-i18n="skillsIntro">Una combinación de liderazgo humano, disciplina operativa y herramientas de mejora enfocadas en continuidad del negocio.</p>
+        </div>
+
+        <div class="grid-four">
+          <article class="mini-card reveal magnetic">
+            <h3 data-i18n="skillsCardTitle">Habilidades</h3>
+            <ul id="skillsList"></ul>
+          </article>
+
+          <article class="mini-card reveal magnetic">
+            <h3 data-i18n="certsTitle">Certificaciones</h3>
+            <ul id="certsList"></ul>
+          </article>
+
+          <article class="mini-card reveal magnetic">
+            <h3 data-i18n="languagesTitle">Idiomas</h3>
+            <div class="languages">
+              <div class="language-row">
+                <strong data-i18n="lang1Title">Español</strong>
+                <span data-i18n="lang1Level">Lengua materna</span>
+                <div class="level"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i></div>
+              </div>
+              <div class="language-row">
+                <strong data-i18n="lang2Title">Inglés</strong>
+                <span data-i18n="lang2Level">B1 intermedio</span>
+                <div class="level"><i class="on"></i><i class="on"></i><i class="on"></i><i></i><i></i></div>
+              </div>
+            </div>
+          </article>
+
+          <article class="mini-card reveal magnetic">
+            <h3 data-i18n="hobbiesTitle">Hobbies</h3>
+            <ul id="hobbiesList"></ul>
+          </article>
+        </div>
+      </section>
+
+      <section id="contacto">
+        <div class="section-header reveal">
+          <h2 data-i18n="contactTitle">Contacto</h2>
+          <p data-i18n="contactIntro">Disponibilidad para oportunidades en operación, supply chain, calidad y mejora continua.</p>
+        </div>
+
+        <div class="contact-grid">
+          <article class="contact-card reveal magnetic">
+            <small data-i18n="contactEmailLabel">Email</small>
+            <strong>yokyen.pv@gmail.com</strong>
+          </article>
+          <article class="contact-card reveal magnetic">
+            <small data-i18n="contactPhoneLabel">Teléfono</small>
+            <strong>55-80939240</strong>
+          </article>
+          <article class="contact-card reveal magnetic">
+            <small data-i18n="contactLocationLabel">Ubicación</small>
+            <span data-i18n="contactLocationValue">San Cristóbal de las Casas, Chiapas, México</span>
+          </article>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <div id="toast"></div>
+
+  <script>
+    const content = {
+      es: {
+        downloadHref: './cv-es.pdf',
+        brandRole: 'Coordinación Operativa',
+        navHome: 'Inicio',
+        navAbout: 'Sobre mí',
+        navExperience: 'Experiencia',
+        navSkills: 'Habilidades',
+        navContact: 'Contacto',
+        eyebrow: 'Coordinadora de inteligencia operativa',
+        heroRole: 'Liderazgo operativo, mejora continua, calidad y coordinación interfuncional.',
+        heroSummary: 'Optimizo procesos, lidero equipos y convierto la operación en resultados medibles mediante mejora continua, calidad y enfoque estratégico.',
+        statYearsValue: '+7',
+        statYearsLabel: 'años de experiencia',
+        statTeamValue: '+38',
+        statTeamLabel: 'colaboradores liderados por turno',
+        statCompaniesValue: '5',
+        statCompaniesLabel: 'roles clave en operación, calidad y mejora',
+        statMethodsValue: '6+',
+        statMethodsLabel: 'metodologías de mejora continua y control',
+        btnExplore: 'Ver experiencia',
+        btnDownload: 'Descargar CV (Español)',
+        aboutTitle: 'Sobre mí',
+        aboutText: 'Profesional enfocada en impulsar la continuidad del negocio mediante liderazgo colaborativo, mejora continua, satisfacción del cliente y cumplimiento de objetivos estratégicos. Su experiencia integra operación, calidad, control de procesos, gestión de indicadores y coordinación de equipos multidisciplinarios en entornos productivos y logísticos.',
+        strengthsTitle: 'Fortalezas clave',
+        strength1Title: 'Liderazgo operativo',
+        strength1Text: 'Gestión de equipos, seguimiento de tareas y coordinación interfuncional orientada a resultados sostenibles.',
+        strength2Title: 'Mejora continua',
+        strength2Text: 'Aplicación de Quickwin, Kaizen, 5 Whys, Ishikawa y Problem Solving para optimizar procesos.',
+        strength3Title: 'Calidad y cumplimiento',
+        strength3Text: 'Aseguramiento de calidad, monitoreo de KPIs, auditorías, SPC y estándares regulatorios.',
+        experienceTitle: 'Experiencia profesional',
+        experienceIntro: 'Trayectoria en operación, logística, calidad y mejora continua con foco en eficiencia, control y liderazgo de equipos.',
+        exp1Date: 'Mayo 2024 – Julio 2025',
+        exp1Company: 'Natura & Co. · Híbrido · Ciudad de México',
+        exp1Role: 'Coordinador de inteligencia de línea',
+        exp1Tag: 'Operación · reabasto · balanceo de línea',
+        exp1B1: 'Reabastos y balanceos de línea.',
+        exp1B2: 'Gestión de operador logístico y equipos de trabajo de más de 38 colaboradores por turno.',
+        exp1B3: 'Identificación de eficiencias en la línea de surtido y planeación de sets de trabajo vs demanda.',
+        exp1B4: 'Coordinación interfuncional, seguimiento de tareas e indicadores clave de rendimiento.',
+        exp1B5: 'Definición de estrategias de reabasto para lograr eficiencia y eficacia en la línea de picking.',
+        exp2Date: 'Mayo 2023 – Abril 2024',
+        exp2Company: 'DHL Supply Chain · Presencial · Tepotzotlán, México',
+        exp2Role: 'Supervisor OMS mejora continua',
+        exp2Tag: 'KPIs · estandarización · productividad',
+        exp2B1: 'Implementación de sistemas de mejora continua operativa.',
+        exp2B2: 'Manejo y monitoreo de KPIs y medición de estándares de productividad.',
+        exp2B3: 'Estandarización de procesos y ejecución de proyectos de mejora continua.',
+        exp2B4: 'Uso de Quickwin, Kaizen, 5 Whys, Ishikawa y Problem Solving.',
+        exp2B5: 'Monitoreo de desempeño mediante WLM y evaluación de efectividad de procesos internos.',
+        exp3Date: 'Noviembre 2020 – Mayo 2023',
+        exp3Company: 'BACARDÍ y Compañía · Presencial · Tultitlán, México',
+        exp3Role: 'Quality Leader',
+        exp3Tag: 'SPC · auditorías · calidad envasado',
+        exp3B1: 'Aseguramiento de calidad envasado y toma de decisiones para lotes producidos vs calidad esperada.',
+        exp3B2: 'Monitoreo de líneas de envasado y gestión de proyectos como briefs y commissionings.',
+        exp3B3: 'Aseguramiento de Control Estadístico de Proceso (SPC).',
+        exp3B4: 'Seguimiento a NOM-002, NOM-251, NOM-142 y KPIs como RFT, EOL y consumer complaints.',
+        exp3B5: 'Soporte a auditorías COFEPRIS, HACCP e ISO-9001 y planes de acción de causa raíz.',
+        exp4Date: 'Enero 2020 – Octubre 2020',
+        exp4Company: 'PATH Logistic + Copacker · Presencial · Tepotzotlán, México',
+        exp4Role: 'Coordinadora de control de calidad',
+        exp4Tag: 'Auditorías · inventarios · documentación técnica',
+        exp4B1: 'Trato directo con clientes y proveedores y supervisión de normativas de seguridad y calidad.',
+        exp4B2: 'Seguimiento a indicadores, auditorías internas, cruzadas y de cliente.',
+        exp4B3: 'Gestión de pequeños equipos de trabajo, inventarios, budgets y facturaciones.',
+        exp4B4: 'Desarrollo e implementación de prácticas que garantizan estándares de calidad.',
+        exp4B5: 'Redacción de documentación técnica, reportes y dictámenes.',
+        exp5Date: 'Marzo 2018 – Enero 2020',
+        exp5Company: 'PATH Logistic + Copacker · Presencial · Cuautitlán, México',
+        exp5Role: 'Inspectora de control de calidad',
+        exp5Tag: 'Inspección · PNC · SGI',
+        exp5B1: 'Inspección de recibo, PT y PNC.',
+        exp5B2: 'Detección de productos no conformes vs especificaciones técnicas y trato directo con cliente.',
+        exp5B3: 'Inspección de maquilas, unidades de transporte y análisis sensoriales.',
+        exp5B4: 'Actualización y control de formatos y auditoría de formatos para SGI.',
+        exp5B5: 'Manejo integrado de plagas y rotación de químicos.',
+        skillsTitle: 'Habilidades, certificaciones e idiomas',
+        skillsIntro: 'Una combinación de liderazgo humano, disciplina operativa y herramientas de mejora enfocadas en continuidad del negocio.',
+        skillsCardTitle: 'Habilidades',
+        certsTitle: 'Certificaciones',
+        languagesTitle: 'Idiomas',
+        lang1Title: 'Español',
+        lang1Level: 'Lengua materna',
+        lang2Title: 'Inglés',
+        lang2Level: 'B1 intermedio',
+        hobbiesTitle: 'Hobbies',
+        contactTitle: 'Contacto',
+        contactIntro: 'Disponibilidad para oportunidades en operación, supply chain, calidad y mejora continua.',
+        contactEmailLabel: 'Email',
+        contactPhoneLabel: 'Teléfono',
+        contactLocationLabel: 'Ubicación',
+        contactLocationValue: 'San Cristóbal de las Casas, Chiapas, México',
+        copiedEmail: 'Correo copiado',
+        copiedPhone: 'Teléfono copiado',
+        skills: [
+          'Adaptabilidad al cambio',
+          'Comunicación efectiva',
+          'Liderazgo positivo',
+          'Inclusión y respeto',
+          'Gestión de proyectos',
+          'Trabajo en equipo',
+          'Flexibilidad operativa',
+          'Toma de decisiones'
+        ],
+        certs: [
+          'OEE - SyS',
+          'VSM - SyS',
+          'AMEF - DC3, 8 hrs - SyS',
+          'Manejo de personal - DC3, 2 hrs - SyS'
+        ],
+        hobbies: ['Fotografía', 'Dibujo', 'Basketball', 'Tocho flag']
+      },
+      en: {
+        downloadHref: './cv-en.pdf',
+        brandRole: 'Operational Coordination',
+        navHome: 'Home',
+        navAbout: 'About',
+        navExperience: 'Experience',
+        navSkills: 'Skills',
+        navContact: 'Contact',
+        eyebrow: 'Operational intelligence coordinator',
+        heroRole: 'Operational leadership, continuous improvement, quality, and cross-functional coordination.',
+        heroSummary: 'I optimize processes, lead teams, and turn operations into measurable results through continuous improvement, quality, and strategic execution.',
+        statYearsValue: '+7',
+        statYearsLabel: 'years of experience',
+        statTeamValue: '+21',
+        statTeamLabel: 'people led per shift',
+        statCompaniesValue: '5',
+        statCompaniesLabel: 'key roles across operations, quality, and improvement',
+        statMethodsValue: '6+',
+        statMethodsLabel: 'continuous improvement and control methodologies',
+        btnExplore: 'View experience',
+        btnDownload: 'Download CV (English)',
+        aboutTitle: 'About me',
+        aboutText: 'Professional focused on promoting business continuity through collaborative leadership, continuous improvement, customer satisfaction, and the achievement of strategic goals. Her experience combines operations, quality, process control, KPI management, and multidisciplinary team coordination in production and logistics environments.',
+        strengthsTitle: 'Core strengths',
+        strength1Title: 'Operational leadership',
+        strength1Text: 'Team management, task follow-up, and cross-functional coordination oriented toward sustainable results.',
+        strength2Title: 'Continuous improvement',
+        strength2Text: 'Application of Quickwin, Kaizen, 5 Whys, Ishikawa, and Problem Solving to optimize processes.',
+        strength3Title: 'Quality and compliance',
+        strength3Text: 'Quality assurance, KPI monitoring, audits, SPC, and regulatory standards compliance.',
+        experienceTitle: 'Professional experience',
+        experienceIntro: 'Background in operations, logistics, quality, and continuous improvement focused on efficiency, control, and team leadership.',
+        exp1Date: 'May 2024 – July 2025',
+        exp1Company: 'Natura & Co. · Hybrid · Mexico City, Mexico',
+        exp1Role: 'Line Intelligence Coordinator',
+        exp1Tag: 'Operations · replenishment · line balancing',
+        exp1B1: 'Replenishment and line balancing.',
+        exp1B2: 'Management of logistics operators and work teams of more than 21 people per shift.',
+        exp1B3: 'Identification of efficiencies in the assortment line and planning of work sets vs demand.',
+        exp1B4: 'Cross-functional coordination, task tracking, and key performance indicators.',
+        exp1B5: 'Definition of replenishment strategies to achieve efficiency and effectiveness on the picking line.',
+        exp2Date: 'May 2023 – April 2024',
+        exp2Company: 'DHL Supply Chain · On site · Tepotzotlan, Mexico',
+        exp2Role: 'OMS Continuous Improvement Supervisor',
+        exp2Tag: 'KPIs · standardization · productivity',
+        exp2B1: 'Implementation of continuous operational improvement systems.',
+        exp2B2: 'Management and monitoring of KPIs and productivity standards.',
+        exp2B3: 'Process standardization and execution of continuous improvement projects.',
+        exp2B4: 'Use of Quickwin, Kaizen, 5 Whys, Ishikawa, and Problem Solving.',
+        exp2B5: 'Performance monitoring through WLM and evaluation of internal process effectiveness.',
+        exp3Date: 'November 2020 – May 2023',
+        exp3Company: 'BACARDI & Co. · On site · Tultitlan, Mexico',
+        exp3Role: 'Quality Leader',
+        exp3Tag: 'SPC · audits · bottling quality',
+        exp3B1: 'Bottling quality assurance and decision-making to ensure expected quality standards.',
+        exp3B2: 'Monitoring of bottling lines and project management such as briefs and commissionings.',
+        exp3B3: 'Statistical Process Control (SPC) assurance.',
+        exp3B4: 'Follow-up on NOM-002, NOM-251, NOM-142, and KPIs such as RFT, EOL, and consumer complaints.',
+        exp3B5: 'Support for COFEPRIS, HACCP, and ISO-9001 audits and root cause action plans.',
+        exp4Date: 'January 2020 – October 2020',
+        exp4Company: 'PATH Logistic + Copacker · On site · Tepotzotlan, Mexico',
+        exp4Role: 'Quality Control Coordinator',
+        exp4Tag: 'Audits · inventory · technical documentation',
+        exp4B1: 'Direct contact with customers and suppliers and supervision of safety and quality regulations.',
+        exp4B2: 'Monitoring of indicators and internal, cross-functional, and customer audits.',
+        exp4B3: 'Management of small teams, inventory, budgets, and invoicing.',
+        exp4B4: 'Development and implementation of practices that guarantee quality standards.',
+        exp4B5: 'Drafting of technical documentation, reports, and quality decisions.',
+        exp5Date: 'March 2018 – January 2020',
+        exp5Company: 'PATH Logistic + Copacker · On site · Cuautitlan, Mexico',
+        exp5Role: 'Quality Control Inspector',
+        exp5Tag: 'Inspection · nonconformities · SGI',
+        exp5B1: 'Receipt inspection, PT, and PNC.',
+        exp5B2: 'Detection of non-compliant products vs technical specifications and direct customer contact.',
+        exp5B3: 'Inspection of maquilas, transport units, and sensory analysis.',
+        exp5B4: 'Formatting updates and control and format audits for SGI.',
+        exp5B5: 'Integrated pest management and chemical rotation.',
+        skillsTitle: 'Skills, certifications, and languages',
+        skillsIntro: 'A combination of human leadership, operational discipline, and improvement tools focused on business continuity.',
+        skillsCardTitle: 'Skills',
+        certsTitle: 'Certifications',
+        languagesTitle: 'Languages',
+        lang1Title: 'Spanish',
+        lang1Level: 'First language',
+        lang2Title: 'English',
+        lang2Level: 'B1 intermediate',
+        hobbiesTitle: 'Hobbies',
+        contactTitle: 'Contact',
+        contactIntro: 'Available for opportunities in operations, supply chain, quality, and continuous improvement.',
+        contactEmailLabel: 'Email',
+        contactPhoneLabel: 'Phone',
+        contactLocationLabel: 'Location',
+        contactLocationValue: 'San Cristobal de las Casas, Chiapas, Mexico',
+        copiedEmail: 'Email copied',
+        copiedPhone: 'Phone copied',
+        skills: [
+          'Professional adaptability',
+          'Effective collaboration',
+          'Expressive communication',
+          'Positive leadership',
+          'Inclusion and respect',
+          'Project management',
+          'Teamwork',
+          'Operational flexibility',
+          'Decision-making'
+        ],
+        certs: [
+          'OEE - SyS',
+          'VSM - SyS',
+          'AMEF - DC3, 8 hrs - SyS',
+          'Personnel management - DC3, 2 hrs - SyS'
+        ],
+        hobbies: ['Photography', 'Drawing', 'Basketball', 'Flag football']
+      }
+    };
+
+    let currentLang = 'es';
+    let toastTimeout;
+
+    function showToast(message) {
+      const toast = document.getElementById('toast');
+      if (!toast) return;
+
+      toast.textContent = message;
+      toast.classList.add('show');
+
+      clearTimeout(toastTimeout);
+      toastTimeout = setTimeout(() => {
+        toast.classList.remove('show');
+      }, 2000);
+    }
+
+    async function copyToClipboard(text, successMessage) {
+      try {
+        await navigator.clipboard.writeText(text);
+        showToast(successMessage);
+      } catch (error) {
+        console.error('Error al copiar:', error);
+        showToast(currentLang === 'es' ? 'No se pudo copiar' : 'Could not copy');
+      }
+    }
+
+    const setLanguage = (lang) => {
+      currentLang = lang;
+      document.body.setAttribute('data-lang', lang);
+      document.documentElement.lang = lang === 'es' ? 'es' : 'en';
+
+      document.querySelectorAll('[data-i18n]').forEach((node) => {
+        const key = node.dataset.i18n;
+        if (content[lang][key]) node.textContent = content[lang][key];
+      });
+
+      document.querySelectorAll('[data-lang-label]').forEach((label) => {
+        label.classList.toggle('active', label.dataset.langLabel === lang);
+      });
+
+      const downloadCv = document.getElementById('downloadCv');
+      downloadCv.href = content[lang].downloadHref;
+      downloadCv.setAttribute('download', '');
+
+      const skillsList = document.getElementById('skillsList');
+      const certsList = document.getElementById('certsList');
+      const hobbiesList = document.getElementById('hobbiesList');
+
+      const fillList = (el, values) => {
+        el.innerHTML = values.map(item => `<li>${item}</li>`).join('');
+      };
+
+      fillList(skillsList, content[lang].skills);
+      fillList(certsList, content[lang].certs);
+      fillList(hobbiesList, content[lang].hobbies);
+
+      document.getElementById('photoEs').classList.toggle('active', lang === 'es');
+      document.getElementById('photoEn').classList.toggle('active', lang === 'en');
+    };
+
+    setLanguage('es');
+
+    const langSwitch = document.getElementById('langSwitch');
+    langSwitch.addEventListener('click', () => setLanguage(currentLang === 'es' ? 'en' : 'es'));
+    langSwitch.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        setLanguage(currentLang === 'es' ? 'en' : 'es');
+      }
+    });
+
+    const sections = document.querySelectorAll('main section[id]');
+    const navLinks = document.querySelectorAll('.nav a');
+    const activateNav = () => {
+      let current = 'inicio';
+      sections.forEach(section => {
+        const top = window.scrollY;
+        const offset = section.offsetTop - 160;
+        const height = section.offsetHeight;
+        if (top >= offset && top < offset + height) current = section.id;
+      });
+      navLinks.forEach(link => {
+        const target = link.getAttribute('href').replace('#', '');
+        link.classList.toggle('active', target === current);
+      });
+    };
+
+    window.addEventListener('scroll', activateNav);
+    activateNav();
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) entry.target.classList.add('visible');
+      });
+    }, { threshold: 0.12 });
+
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+    const glow = document.getElementById('cursorGlow');
+    window.addEventListener('pointermove', (e) => {
+      glow.style.left = e.clientX + 'px';
+      glow.style.top = e.clientY + 'px';
+    });
+
+    document.querySelectorAll('.magnetic').forEach(el => {
+      el.addEventListener('mouseenter', () => glow.classList.add('active'));
+      el.addEventListener('mouseleave', () => {
+        glow.classList.remove('active');
+        el.style.transform = '';
+      });
+      el.addEventListener('mousemove', (e) => {
+        const rect = el.getBoundingClientRect();
+        const x = e.clientX - rect.left - rect.width / 2;
+        const y = e.clientY - rect.top - rect.height / 2;
+        el.style.transform = `translate(${x * 0.02}px, ${y * 0.02}px)`;
+      });
+    });
+
+    const emailLink = document.getElementById('emailLink');
+    const phoneLink = document.getElementById('phoneLink');
+
+    emailLink.addEventListener('click', async (e) => {
+      e.preventDefault();
+      await copyToClipboard('yokyen.pv@gmail.com', content[currentLang].copiedEmail);
+    });
+
+    phoneLink.addEventListener('click', async (e) => {
+      e.preventDefault();
+      await copyToClipboard('55-80939240', content[currentLang].copiedPhone);
+    });
+  </script>
+</body>
+</html>
